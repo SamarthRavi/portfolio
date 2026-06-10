@@ -17,11 +17,10 @@ const About = () => {
   const two = (
     <p>
       Some of my notable projects include a Bluetooth-based Smart Attendance
-      System, the SunPort smart charging prototype, and OneRoof, a modern
-      real estate platform. Outside technology, I enjoy fitness, boxing,
-      gaming, and continuously learning new skills in software and hardware
-      development. My goal is to become a highly skilled IoT and Embedded
-      Systems Engineer and build products that create real impact.
+      System and OneRoof, a modern real estate platform. Outside technology,
+      I enjoy fitness, gaming, and continuously learning new skills in software
+      and hardware development. My goal is to become a highly skilled IoT and 
+      Embedded Systems Engineer and build products that create real impact.
     </p>
   );
 
