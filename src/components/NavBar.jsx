@@ -78,7 +78,7 @@ const NavBar = () => {
             </Nav.Link>
 
             <Nav.Link
-              href="/Resume.pdf"
+              href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
             >
