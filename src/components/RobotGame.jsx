@@ -512,7 +512,7 @@ const RobotGame = ({ active }) => {
       {gameStatus === "dead" && (
         <div className="robot-game-status robot-game-status--dead">
           <div className="robot-game-status-title">you fell</div>
-          <div className="robot-game-status-sub">sensor nodes scatter further</div>
+          <div className="robot-game-status-sub">microprocessor has scattered further</div>
           <button className="robot-game-status-btn" onClick={restart}>try again</button>
           <div className="robot-game-status-hint">or press space</div>
         </div>
@@ -520,8 +520,8 @@ const RobotGame = ({ active }) => {
 
       {gameStatus === "won" && (
         <div className="robot-game-status robot-game-status--won">
-          <div className="robot-game-status-title">neurons restored</div>
-          <div className="robot-game-status-sub">all {CELL_COUNT} sensor nodes recovered</div>
+          <div className="robot-game-status-title">microprocessor restored</div>
+          <div className="robot-game-status-sub">all {CELL_COUNT} microprocessors recovered</div>
           <button className="robot-game-status-btn" onClick={restart}>play again</button>
         </div>
       )}
