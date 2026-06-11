@@ -154,12 +154,16 @@ function generateCellLayout(nb, vw, avoidZones = []) {
   const cLeft  = Math.max(0, (vw - 1000) / 2);
   const cRight = Math.min(vw - 40, cLeft + 1000);
 
+  // --- FIX: use actual page height so the 5th collectable never goes off-screen ---
+  const pageH  = document.documentElement.scrollHeight;
+  const usable = Math.max(pageH - nb - 200, 1000); // at least 1000px of room
+
   const yZones = [
-    [nb + 400,  nb + 620 ],
-    [nb + 1000, nb + 1280],
-    [nb + 1780, nb + 2100],
-    [nb + 2700, nb + 3060],
-    [nb + 3640, nb + 4160],
+    [nb + usable * 0.10, nb + usable * 0.15],
+    [nb + usable * 0.25, nb + usable * 0.32],
+    [nb + usable * 0.45, nb + usable * 0.53],
+    [nb + usable * 0.65, nb + usable * 0.76],
+    [nb + usable * 0.85, nb + usable * 0.95],
   ];
 
   const xTiers = [
@@ -227,6 +231,8 @@ const RobotGame = ({ active }) => {
   const frameRef     = useRef(0);
   const jumpSoundRef = useRef(null);
   const collectSoundRef = useRef(null);
+  const fallSoundRef = useRef(null);
+  const winSoundRef = useRef(null);
 
   const [gameStatus,      setGameStatus]      = useState("playing");
   const [restartKey,      setRestartKey]      = useState(0);
@@ -270,6 +276,12 @@ const RobotGame = ({ active }) => {
 
     collectSoundRef.current = new Audio("/sounds/collecting-microprocessor.mp3");
     collectSoundRef.current.volume = 0.25;
+
+    fallSoundRef.current = new Audio("/sounds/fall.mp3");
+    fallSoundRef.current.volume = 0.3;
+
+    winSoundRef.current = new Audio("/sounds/win.mp3");
+    winSoundRef.current.volume = 0.3;
 
     const allDomZones  = [];
     const textZones    = [];
@@ -456,7 +468,15 @@ const RobotGame = ({ active }) => {
       }
 
       if (a.docY - scrollY > canvas.height + 100) {
-        a.status = "dead"; setGameStatus("dead"); return;
+
+        if (fallSoundRef.current) {
+          fallSoundRef.current.currentTime = 0;
+          fallSoundRef.current.play().catch(() => {});
+        }
+
+        a.status = "dead";
+        setGameStatus("dead");
+        return;
       }
 
       const aCx = a.x + BLOB_W / 2;
@@ -478,6 +498,10 @@ const RobotGame = ({ active }) => {
       });
 
       if (cellsRef.current.length > 0 && cellsRef.current.every((c) => c.collected)) {
+        if (winSoundRef.current) {
+          winSoundRef.current.currentTime = 0;
+          winSoundRef.current.play().catch(() => {});
+        }
         a.status = "won"; setGameStatus("won"); return;
       }
 
@@ -509,6 +533,14 @@ const RobotGame = ({ active }) => {
 
       if (collectSoundRef.current) {
         collectSoundRef.current.pause();
+      }
+
+      if (fallSoundRef.current) {
+        fallSoundRef.current.pause();
+      }
+
+      if (winSoundRef.current) {
+        winSoundRef.current.pause();
       }
 
       keysRef.current.clear();

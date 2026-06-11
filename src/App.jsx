@@ -7,6 +7,7 @@ import NavBar from "./components/NavBar";
 import SidebarNav from "./components/SidebarNav";
 import RobotGame from "./components/RobotGame";
 import { Routes, Route, useLocation } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 
 import "./App.css";
 import "./styles/Global.css";
@@ -24,6 +25,7 @@ function App() {
   return (
     <div className="App">
       <div id="home"></div>
+
       <NavBar />
 
       <div className="game-toggle-fixed">
@@ -94,6 +96,8 @@ function App() {
           />
         </Routes>
       </div>
+
+      <Analytics />
     </div>
   );
 }
