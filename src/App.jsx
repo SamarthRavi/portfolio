@@ -69,7 +69,7 @@ function App() {
             </div>
 
             <div className="robot-game-info-goal">
-              collect your scattered sensor nodes
+              collect your microprocessor
             </div>
           </div>
         )}
