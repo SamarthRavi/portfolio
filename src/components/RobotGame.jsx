@@ -225,6 +225,8 @@ const RobotGame = ({ active }) => {
   const keysRef      = useRef(new Set());
   const jumpLatchRef = useRef(false);
   const frameRef     = useRef(0);
+  const jumpSoundRef = useRef(null);
+  const collectSoundRef = useRef(null);
 
   const [gameStatus,      setGameStatus]      = useState("playing");
   const [restartKey,      setRestartKey]      = useState(0);
@@ -263,6 +265,11 @@ const RobotGame = ({ active }) => {
     const nb = getNavbarBottom();
     frameRef.current = 0;
     setCellsCollected(0);
+    jumpSoundRef.current = new Audio("/sounds/jump.mp3");
+    jumpSoundRef.current.volume = 0.15;
+
+    collectSoundRef.current = new Audio("/sounds/collecting-microprocessor.mp3");
+    collectSoundRef.current.volume = 0.25;
 
     const allDomZones  = [];
     const textZones    = [];
@@ -418,7 +425,15 @@ const RobotGame = ({ active }) => {
       else            a.vx *= FRICTION;
 
       if (jump && a.onGround && !jumpLatchRef.current) {
-        a.vy = JUMP_FORCE; a.onGround = false; jumpLatchRef.current = true;
+
+        if (jumpSoundRef.current) {
+           jumpSoundRef.current.currentTime = 0;
+          jumpSoundRef.current.play().catch(() => {});
+        }
+
+        a.vy = JUMP_FORCE;
+         a.onGround = false;
+         jumpLatchRef.current = true;
       }
       if (!jump) jumpLatchRef.current = false;
 
@@ -451,6 +466,12 @@ const RobotGame = ({ active }) => {
         const cCx = cell.x + 6;
         const cCy = cell.docY + 8;
         if (Math.abs(aCx - cCx) < 24 && Math.abs(aCy - cCy) < 26) {
+
+          if (collectSoundRef.current) {
+            collectSoundRef.current.currentTime = 0;
+            collectSoundRef.current.play().catch(() => {});
+          }
+
           cell.collected = true;
           setCellsCollected((c) => c + 1);
         }
@@ -476,11 +497,20 @@ const RobotGame = ({ active }) => {
     };
     window.addEventListener("resize", onResize);
 
-    return () => {
+   return () => {
       cancelAnimationFrame(animRef.current);
       window.removeEventListener("keydown", onKeyDown);
-      window.removeEventListener("keyup",   onKeyUp);
-      window.removeEventListener("resize",  onResize);
+      window.removeEventListener("keyup", onKeyUp);
+      window.removeEventListener("resize", onResize);
+
+      if (jumpSoundRef.current) {
+        jumpSoundRef.current.pause();
+      }
+
+      if (collectSoundRef.current) {
+        collectSoundRef.current.pause();
+      }
+
       keysRef.current.clear();
       jumpLatchRef.current = false;
     };
