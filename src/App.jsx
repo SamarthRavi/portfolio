@@ -23,6 +23,7 @@ function App() {
 
   return (
     <div className="App">
+      <div id="home"></div>
       <NavBar />
 
       <div className="game-toggle-fixed">

@@ -189,3 +189,7 @@
     padding: 8px 20px;
   }
 }
+
+#intro {
+  scroll-margin-top: 90px;
+}
