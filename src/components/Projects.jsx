@@ -9,7 +9,7 @@ const spotlightProjects = {
     title: "smart attendance system",
     desc: "An IoT-based attendance management system using ESP32, Bluetooth Low Energy and Firebase Realtime Database.",
     techStack: "ESP32 • BLE • FIREBASE",
-    link: "https://github.com/SamarthRavi/Smart-IoT-Attendance-System",
+    link: "https://attendance-chi-six.vercel.app/dashboard",
     image: "/assets/attendance.png",
   },
 
@@ -17,7 +17,7 @@ const spotlightProjects = {
     title: "oneroof",
     desc: "A modern real-estate aggregation platform built with React, TypeScript and Supabase.",
     techStack: "REACT • TYPESCRIPT • SUPABASE",
-    link: "https://github.com/SamarthRavi/OneRooF-Real-Estate-Aggregator",
+    link: "https://one-roof-final.vercel.app/",
     image: "/assets/oneroof.png",
   },
 
@@ -25,7 +25,7 @@ const spotlightProjects = {
     title: "queue monitoring",
     desc: "A crowd monitoring dashboard with occupancy tracking and analytics.",
     techStack: "HTML • CSS • JAVASCRIPT",
-    link: "https://github.com/SamarthRavi/Queue-Monitoring-System",
+    link: "https://queue-monitoring-system.vercel.app/dashboard",
     image: "/assets/queue-monitoring.png",
   },
 };
